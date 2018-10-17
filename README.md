@@ -22,7 +22,14 @@
 * [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
 
 ### Lesson Quick Start
-#### Install Necessary Packages
+#### Install Necessary Packages - Update ONly
+If you've already got most of the packages we've been using installed, there is only one new package to use:
+
+```r
+install.packages("janitor")
+```
+
+#### Install Necessary Packages - New Install
 You can copy and paste this syntax into your console:
 
 ```r
