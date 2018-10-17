@@ -1,0 +1,33 @@
+---
+title: "Reproducible Research in R, Lesson 4"
+author: "Christy Garcia, Ph.D. and Christopher Prener, Ph.D."
+date: '(`r format(Sys.time(), "%B %d, %Y")`)'
+output: 
+  github_document: default
+  html_notebook: default 
+---
+
+## Introduction
+This notebook extends our use of `knitr` and other reproducible research techniques discussed in the first three lessons.
+
+## Dependencies
+This notebook requires the following packages:
+
+```{r load-packages}
+# tidyverse packages
+library(ggplot2)      # data plotting
+library(magrittr)     # pipe operator
+library(readr)        # read csv files
+
+# other packages
+library(here)         # file path management
+library(janitor)      # frequency tables
+library(knitr)        # support for document knitting
+```
+
+## Load Data
+This notebook requires two data files from the `data/` folder, the `mpg.csv` data and the `starwars.csv` data.
+
+```{r load-mpg-data}
+auto <- read_csv(here("data", "mpg.csv"))
+```

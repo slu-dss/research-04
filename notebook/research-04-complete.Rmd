@@ -1,0 +1,141 @@
+---
+title: "Reproducible Research in R, Lesson 4 - Completed Notebook"
+author: "Christy Garcia, Ph.D. and Christopher Prener, Ph.D."
+date: '(`r format(Sys.time(), "%B %d, %Y")`)'
+output:
+  word_document:
+    toc: true
+    toc_depth: 2
+bibliography: bibliography.bib
+---
+
+## Introduction
+This notebook extends our use of `knitr` and other reproducible research techniques discussed in the first three lessons.
+
+## Dependencies
+This notebook requires the following packages:
+
+```{r load-packages}
+# tidyverse packages
+library(ggplot2)      # data plotting
+library(magrittr)     # pipe operator
+library(readr)        # read csv files
+
+# other packages
+library(here)         # file path management
+library(janitor)      # frequency tables
+library(knitr)        # support for document knitting
+```
+
+## Load Data and Modify Output
+This notebook requires two data files from the `data/` folder, the `mpg.csv` data and the `starwars.csv` data.
+
+```{r load-mpg-data, message = FALSE, results='hide'}
+auto <- read_csv(here("data", "mpg.csv"))
+```
+
+```{r load-starwars-data, message = FALSE, results='hide'}
+star <- read_csv(here("data", "starwars.csv"))
+```
+
+*The code chunks both include `results='hide'` syntax, that prevents their output from appearing in your knit document. The code, however, will appear!*
+
+If there are specific messages, like `read_csv()` produces, these will be hidden as well.
+
+## Inline Information
+We can embed statistics, like the average highway fuel efficiency (`r mean(auto$hwy)`). We can round this to two digits so we get a shorter output using the `round()` function - `r round(mean(auto$hwy), digits = 2)`.
+
+## Modifying Output with Images
+There are two ways to include images. First, we can use pre-made images in our documents. For example, we could embed the SLU DSS logo. By including `echo=FALSE`, we supress the code from being included in our output document!
+
+```{r static-image, out.width='25%', fig.align='center', fig.cap='DSS Logo', echo=FALSE}
+include_graphics(here("img", "logo.png"))
+```
+
+We could also add the SLU logo itself.
+
+```{r static-image-2, out.width='25%', fig.align='center', fig.cap='SLU Logo', echo=FALSE}
+include_graphics(here("img", "sluLogo.png"))
+```
+
+Or we could add a plot:
+
+```{r create-plot-auto, echo=FALSE}
+ggplot(data = auto, mapping = aes(hwy, cty)) +
+  geom_point()
+```
+
+Or another plot:
+
+```{r create-plot-star, echo=FALSE, warning=FALSE}
+ggplot(data = star, mapping = aes(height, mass)) +
+  geom_point()
+```
+
+This last plot adds a warning to our document, which we can supress with `warning=FALSE`.
+
+## Adding Tables
+If we want to create a simple frequency table, we can do that with the `janitor` package:
+
+```{r simple-table, echo=FALSE}
+auto %>%
+  tabyl(class)
+```
+
+By using the `kable` function, we can improve the display of this table:
+
+```{r nicer-table, echo=FALSE}
+auto %>% 
+  tabyl(class) -> tableClass
+
+kable(tableClass)
+```
+
+This can also be used for arbitrary information:
+
+```{r arbitrary-table, echo=FALSE}
+kable(
+  data.frame(
+    name = c("Chris", "Christy"),
+    program = c("Sociology", "Spanish")
+  )
+)
+```
+
+## Other formats
+In order to switch to other formats, you need to edit the `YAML` header of your `.Rmd` file. You can choose from a variety of [document](https://bookdown.org/yihui/rmarkdown/documents.html) and [presentation](https://bookdown.org/yihui/rmarkdown/presentations.html) formats. 
+
+We'll quickly adjust this notebook to knit as a word document instead of `html` notebooks and `.md` output files.
+
+Change the `output:` line of your `YAML` to look like this:
+
+```
+output: word_document
+```
+
+When you knit, the word document will be created instead of the previous output types.
+
+## Adding a Table of Contents
+If we want to add a table of contents to this document, we can edit the `YAML` like so:
+
+```
+output:
+  word_document:
+    toc: true
+    toc_depth: 2
+```
+
+## Citing References
+To cite references, you need four components. First, you'll need a `.bib` file [or another bibligoraphy format](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html) saved in your `notebook/` directory. We've provided a sample `.bib` file, which uses LaTeX bibligoraphy styles that can be obtained from Google Scholar to populate our bibliography.
+
+Second, you need to have edited the notebook header to include a bibligography reference:
+
+```
+bibliography: bibliography.bib
+```
+
+Third, you need to include an in-text reference. For example, we could discuss the book *R for Data Science* [@wickham2016r]. We use the brackets and `@` to indicate that we want to make an in-text citation. We can also talk about an author's work, like Xie's recent work [-@xie2018r]. Or we can talk about an author's work on a specific page, like @wickham2016r [p. 62].
+
+Fourth, we need to add a final heading at the bottom of the file titled `## References` or `## Works Cited`.
+
+## Works Cited
