@@ -8,12 +8,6 @@
 
 ## Lesson Overview
 
-### Objectives
-At the end of this lesson, participants should be able to:
-
-1.
-2.
-3.
 
 ### Lesson Resources
 * The [`SETUP.md`](/references/SETUP.md) file in the [`references/`](/references) directory contains a list of packages required for this lesson
@@ -22,9 +16,20 @@ At the end of this lesson, participants should be able to:
 * The [`references/`](/references) directory also contains other notes on changes to the repository, key topics, terms, data sources, and software.
 
 ### Extra Resources
+* [RStudio's R Markdown website](https://rmarkdown.rstudio.com)
+* [RStudio's R Markdown cheatsheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+* [RStudio's R Markdown reference guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
 
+### Lesson Quick Start
+#### Install Necessary Packages
+You can copy and paste this syntax into your console:
 
-## Access Lesson
+```r
+install.packages(c("tidyverse", "here", "knitr", "janitor", "rmarkdown", "usethis"))
+```
+
+#### Download Lesson Materials
 You can download this lesson to your Desktop easily using `usethis`:
 
 ```r
